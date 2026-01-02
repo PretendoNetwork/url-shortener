@@ -28,7 +28,8 @@ app.get('/:id', async (request, response) => {
 		return;
 	}
 
-	response.redirect(301, link.url);
+	// Use temporary redirect to allow the links to be changed without caching
+	response.redirect(302, link.url);
 });
 
 LOG_INFO('Creating 404 status handler');
