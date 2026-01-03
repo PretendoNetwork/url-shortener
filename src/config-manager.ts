@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { LOG_INFO, LOG_WARN, LOG_ERROR } from '@/logger';
+import type mongoose from 'mongoose';
 import type Config from '@/types/config';
 
 dotenv.config();

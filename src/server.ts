@@ -1,5 +1,3 @@
-process.title = 'Pretendo - URL Shortener';
-
 import express from 'express';
 import morgan from 'morgan';
 import { config } from '@/config-manager';
@@ -7,6 +5,8 @@ import * as database from '@/database';
 import RequestException from '@/request-exception';
 import { LOG_INFO, LOG_SUCCESS } from '@/logger';
 import type { HydratedLinkDocument } from '@/types/mongoose/link';
+
+process.title = 'Pretendo - URL Shortener';
 
 const app = express();
 

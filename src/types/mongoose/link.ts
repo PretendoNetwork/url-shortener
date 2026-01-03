@@ -1,4 +1,4 @@
-import { Model, HydratedDocument } from 'mongoose';
+import type { Model, HydratedDocument } from 'mongoose';
 
 export interface ILink {
 	id: string;
@@ -12,4 +12,4 @@ interface ILinkQueryHelpers {}
 
 export interface LinkModel extends Model<ILink, ILinkQueryHelpers, ILinkMethods> {}
 
-export type HydratedLinkDocument = HydratedDocument<ILink, ILinkMethods>
+export type HydratedLinkDocument = HydratedDocument<ILink, ILinkMethods>;
