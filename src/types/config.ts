@@ -9,6 +9,7 @@ interface Config {
 		options: ConnectOptions;
 	};
 	analytics: boolean;
+	error_code_url: string;
 }
 
 export default Config;
