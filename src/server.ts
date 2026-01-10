@@ -15,15 +15,25 @@ app.use(morgan('dev'));
 
 LOG_INFO('Creating redirect handler');
 app.get('/:id', async (request, response) => {
+	const linkId = request.params.id;
+
 	let link: HydratedLinkDocument | null;
 
 	if (config.analytics) {
-		link = await database.getLinkAndUpHits(request.params.id);
+		link = await database.getLinkAndUpHits(linkId);
 	} else {
-		link = await database.getLink(request.params.id);
+		link = await database.getLink(linkId);
 	}
 
 	if (!link) {
+		// Dynamic error code URL redirection so we don't have to store every error code link in the database
+		const isErrorCode = linkId.match(/^[0-9]+-[0-9]+$/);
+		if (isErrorCode) {
+			const finalUrl = config.error_code_url.replace('{code}', linkId);
+			response.redirect(302, finalUrl);
+			return;
+		}
+
 		response.sendStatus(404);
 		return;
 	}

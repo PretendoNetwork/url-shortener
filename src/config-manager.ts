@@ -27,7 +27,9 @@ export const config: Config = {
 		connection_string: process.env.PN_URL_SHORTENER_CONFIG_MONGO_CONNECTION_STRING?.trim() || '',
 		options: mongooseConnectOptionsMain
 	},
-	analytics: false
+	analytics: false,
+	error_code_url: process.env.PN_URL_SHORTENER_CONFIG_ERROR_CODE_URL?.trim() || 'https://pretendo.network/docs/error/{code}'
+
 };
 
 LOG_INFO('Config loaded, checking integrity');
@@ -42,6 +44,22 @@ if (!config.mongoose.connection_string) {
 
 if (process.env.PN_URL_SHORTENER_CONFIG_ANALYTICS) {
 	config.analytics = process.env.PN_URL_SHORTENER_CONFIG_ANALYTICS.trim().toLowerCase() === 'true';
+}
+
+let errorCodeValidUrl = false;
+try {
+	new URL(config.error_code_url);
+	errorCodeValidUrl = true;
+} catch {
+	errorCodeValidUrl = false;
+}
+
+if (!errorCodeValidUrl) {
+	errors.push('The error code URL is not a valid URL.');
+}
+
+if (!config.error_code_url.includes('{code}')) {
+	warnings.push('The error code URL does not contain the "{code}" placeholder. This may cause error code links to not work as expected.');
 }
 
 for (const warning of warnings) {
