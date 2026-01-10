@@ -46,14 +46,7 @@ if (process.env.PN_URL_SHORTENER_CONFIG_ANALYTICS) {
 	config.analytics = process.env.PN_URL_SHORTENER_CONFIG_ANALYTICS.trim().toLowerCase() === 'true';
 }
 
-let errorCodeValidUrl = false;
-try {
-	new URL(config.error_code_url);
-	errorCodeValidUrl = true;
-} catch {
-	errorCodeValidUrl = false;
-}
-
+const errorCodeValidUrl = config.error_code_url.match(/^https?:\/\/.+$/);
 if (!errorCodeValidUrl) {
 	errors.push('The error code URL is not a valid URL.');
 }
