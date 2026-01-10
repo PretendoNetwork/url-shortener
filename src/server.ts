@@ -27,7 +27,7 @@ app.get('/:id', async (request, response) => {
 
 	if (!link) {
 		// Dynamic error code URL redirection so we don't have to store every error code link in the database
-		const isErrorCode = linkId.match(/^[0-9]+-[0-9]+$/);
+		const isErrorCode = linkId.match(/^[0-9]{1,6}-[0-9]{1,6}$/);
 		if (isErrorCode) {
 			const finalUrl = config.error_code_url.replace('{code}', linkId);
 			response.redirect(302, finalUrl);
