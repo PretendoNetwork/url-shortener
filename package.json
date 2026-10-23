@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "Simple URL shortener service",
 	"main": "dist/server.js",
+	"engines": {
+		"node": "^24.22.1"
+	},
 	"scripts": {
 		"dev": "tsup --watch --onSuccess \"node dist/server.js\"",
 		"lint": "eslint .",
